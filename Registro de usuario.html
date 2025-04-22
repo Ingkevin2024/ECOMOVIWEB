@@ -135,25 +135,31 @@
             width: 20px;
             height: 20px;
         }
-
+        
         @keyframes brillo {
-    0% {
-        box-shadow: 0 0 2px 0.5px #00ff00;
-    }
-    50% {
-        box-shadow: 0 0 6px 2px #00ff00;
-    }
-    100% {
-        box-shadow: 0 0 2px 0.5px #00ff00;
-    }
-}
+            0% {
+                border-color: #00ff00;
+                box-shadow: 0 0 5px 1px #00ff00;
+            }
+            50% {
+                border-color: #00ff00;
+                box-shadow: 0 0 15px 6px #00ff00;
+            }
+            100% {
+                border-color: #00ff00;
+                box-shadow: 0 0 5px 1px #00ff00;
+            }
+        }
 
-.borde-verde {
-    border: 2px solid #00ff00; /* Un borde más grueso para que sea más visible */
-    border-radius: 0.6rem;
-    box-shadow: 0 0 2px 2px #00ff00;
-    animation: brillo 2s infinite ease-in-out;
-}
+        .borde-verde {
+            padding: 20px;
+            border: 3px solid #00ff00;
+            border-radius: 15px;
+            box-shadow: 0 0 8px 2px #00ff00;
+            animation: brillo 2s infinite ease-in-out;
+            background-color: #e6f3d946;
+        }
+
 
     </style>
 </head>
@@ -167,8 +173,9 @@
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <div class="card shadow-lg borde-verde">
+                    <div class="borde-verde">
                         <h3 class="text-center mb-4"><b>Regístrate:</b></h3>
+                        <div class="p-3">
                         <div class="card-body">
                             <div class="mb-3">
                                 <label for="nom_usu" class="form-label">Nombre:</label>
