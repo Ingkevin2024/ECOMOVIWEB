@@ -1,21 +1,23 @@
-<!DOCTYPE html>
-<html lang="es">
+<!DOCTYPE html> <!-- Define el tipo de documento HTML5 -->
+<html lang="es"> <!-- Comienza el HTML y define el idioma español -->
+
 <head>
     <!-- Configuración de codificación de caracteres -->
     <meta charset="UTF-8">
-    <!-- Hacer que la página sea responsive en dispositivos móviles -->
+    <!-- Hace la página responsive para dispositivos móviles -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Título de la pestaña del navegador -->
+    <!-- Título que aparece en la pestaña del navegador -->
     <title>Iniciar sesión</title>
-    <!-- Descripción para SEO -->
+    <!-- Descripción para buscadores -->
     <meta name="description" content="Página de inicio de sesión para acceder a tu cuenta.">
 
-    <!-- Bootstrap para diseño responsive y estilos predeterminados -->
+    <!-- Enlace al CSS de Bootstrap para estilos y diseño responsivo -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Font Awesome para íconos -->
+    <!-- Enlace a Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
+        /* Estilo general del body con fondo, fuente y centrado */
         body {
             height: 100vh;
             margin: 0;
@@ -28,6 +30,7 @@
             position: relative;
         }
 
+        /* Superposición oscura sobre la imagen de fondo */
         body::before {
             content: '';
             position: fixed;
@@ -39,11 +42,13 @@
             z-index: -1;
         }
 
+        /* Título del formulario */
         h2 {
             font-family: 'Times New Roman', Times, serif;
             font-size: 35px;
         }
 
+        /* Estilos del encabezado */
         header {
             padding: 1px;
             max-height: 8.5vw;
@@ -52,6 +57,7 @@
             align-items: center;
         }
 
+        /* Estilo del logo dentro de la barra de navegación */
         .navbar-brand img {
             margin-top: 10px;
             margin-left: -89px;
@@ -60,6 +66,7 @@
             width: 17vw;
         }
 
+        /* Enlaces del menú de navegación */
         .nav-link {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 20px;
@@ -69,21 +76,25 @@
             text-align: center;
         }
 
+        /* Efecto hover en los enlaces */
         .nav-link:hover {
             color: #08291c !important;
             text-decoration: none;
         }
 
+        /* Icono del botón para dispositivos móviles */
         .navbar-toggler-icon {
             width: 1.4rem;
             height: 1.4rem;
             margin-top: -5px;
         }
 
+        /* Ajuste del botón hamburguesa */
         .navbar-toggler {
             margin-top: -30px;
         }
 
+        /* Contenedor del formulario */
         .form-container {
             background: #e6f3d959;
             padding: 15px;
@@ -94,11 +105,13 @@
             margin-top: 40px;
         }
 
+        /* Etiquetas de los inputs */
         .input-group label {
             display: block;
             margin-bottom: 5px;
         }
 
+        /* Inputs del formulario */
         .input-group input {
             width: 85%;
             border-radius: 0.5rem;
@@ -108,6 +121,7 @@
             color: rgb(14, 14, 14);
         }
 
+        /* Enlaces para recuperar contraseña o registrarse */
         .forgot a,
         .signup a {
             color: rgb(0, 0, 0);
@@ -115,6 +129,7 @@
             font-size: 1rem;
         }
 
+        /* Botón personalizado verde */
         .botoncito-2 {
             background-color: #28a745;
             padding: 10px;
@@ -124,14 +139,17 @@
             width: 60%;
         }
 
+        /* Hover para el botón */
         .botoncito-2:hover {
             background-color: #218838;
         }
 
+        /* Enlace en condiciones */
         .form-check a {
             color: #08291c;
         }
 
+        /* Botón flotante para volver atrás */
         .back-button {
             position: fixed;
             top: 20px;
@@ -152,16 +170,19 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
+        /* Efecto hover para botón de regreso */
         .back-button:hover {
             background-color: #45a049;
             transform: scale(1.05);
         }
 
+        /* Icono dentro del botón de regreso */
         .back-button img {
             width: 20px;
             height: 20px;
         }
 
+        /* Contenedor de términos y condiciones */
         .term-section {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
@@ -173,12 +194,14 @@
             transition: all 0.3s ease;
         }
 
+        /* Efecto hover de la sección de términos */
         .term-section:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(76, 175, 80, 0.2);
             background: rgba(255, 255, 255, 0.8);
         }
 
+        /* Título de la sección de términos */
         .term-section h6 {
             color: #28a745;
             font-size: 1.2rem;
@@ -187,22 +210,26 @@
             padding-bottom: 10px;
         }
 
+        /* Íconos dentro de la sección */
         .term-section i {
             margin-right: 10px;
             color: #28a745;
         }
 
+        /* Lista de elementos dentro de términos */
         .term-section ul li {
             margin: 10px 0;
             color: #333;
             transition: all 0.3s ease;
         }
 
+        /* Hover para los ítems */
         .term-section ul li:hover {
             transform: translateX(10px);
             color: #28a745;
         }
 
+        /* Ajustes responsive para móviles */
         @media (max-width: 768px) {
             .navbar-brand img {
                 margin-top: -15px;
@@ -225,20 +252,20 @@
             }
         }
 
+        /* Animación para el borde brillante */
         @keyframes brillo {
             0% {
                 box-shadow: 0 0 3px 1px #00ff00;
             }
-
             50% {
                 box-shadow: 0 0 10px 4px #00ff00;
             }
-
             100% {
                 box-shadow: 0 0 3px 1px #00ff00;
             }
         }
 
+        /* Contenedor con borde animado verde */
         .borde-verde {
             margin: 0;
             padding: 0px;
@@ -252,23 +279,25 @@
     </style>
 </head>
 <body>
-    <!-- Botón de regreso a la página principal -->
+    <!-- Botón para regresar a página anterior -->
     <a href="paginapri.html" class="back-button">
         <i class="fas fa-arrow-left"></i>
         Regresar
     </a>
     
-    <!-- Contenedor principal centrado vertical y horizontalmente -->
+    <!-- Contenedor del formulario centrado -->
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <!-- Contenedor del formulario con padding -->
         <div class="container2">
+            <!-- Caja con borde animado -->
             <div class="borde-verde">
+                <!-- Contenedor del formulario -->
                 <div class="form-container p-4">
                     <!-- Título del formulario -->
                     <h2 class="text-center mb-4"><b>Iniciar sesión</b></h2>
 
-                    <!-- Formulario de inicio de sesión -->
+                    <!-- Formulario de login -->
                     <form id="loginForm" action="iniciar_sesion.php" method="POST">
+                        <!-- Selección de tipo de usuario -->
                         <div class="form-group">
                             <label for="tipo_Inicio"><b>Iniciar sesión como</b></label>
                             <select required name="tipo_Inicio" class="form-control" id="tipo_Inicio">
@@ -279,24 +308,29 @@
                             </select>
                         </div>
 
+                        <!-- Campo de número de documento -->
                         <div class="form-group">
                             <label for="num_doc_usu"><b>Número de documento</b></label>
                             <input type="text" class="form-control" name="num_doc_usu" id="num_doc_usu" placeholder="Ingrese número de documento de identidad" required>
                         </div>
 
+                        <!-- Campo de contraseña -->
                         <div class="form-group">
                             <label for="contrasena"><b>Contraseña</b></label>
                             <input type="password" class="form-control" name="contrasena" id="contrasena" placeholder="Ingrese su contraseña" required>
                         </div>
 
+                        <!-- Casilla para aceptar términos -->
                         <div class="aceptar-condiciones">
                             <input type="checkbox" id="acepta">
                             <label for="acepta">Acepto los <a href="tyc.php">términos y condiciones</a> haciendo clic <strong>aquí</strong>.</label>
                         </div>
 
+                        <!-- Botón para enviar el formulario -->
                         <button type="submit" class="botoncito-2">Iniciar sesión</button>
                     </form>
 
+                    <!-- Enlace al registro -->
                     <p class="signup text-center mt-3">
                         ¿No tienes cuenta? <a href="Registro de usuario.html">Regístrate</a>
                     </p>
@@ -305,7 +339,7 @@
         </div>
     </div>
 
-    <!-- Scripts JavaScript necesarios para el funcionamiento de la página -->
+    <!-- Scripts necesarios para funcionamiento de Bootstrap y otros -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
