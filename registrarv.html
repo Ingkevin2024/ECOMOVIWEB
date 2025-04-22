@@ -147,8 +147,7 @@
 
   <body>
     
-    <div class="container mt-5 mx-auto">
-      <div class="borde-verde">
+    <div class="container mt-5 mx-auto borde-verde">
         <h2 class="text-center mb-4"><b>Registra tu Vehículo:</b></h2>
         <form id="formRegistroV" action="registrar_vehiculo.php" method="POST" enctype="multipart/form-data">
           <div class="row">
@@ -345,19 +344,21 @@
           </div>
         </form>
       </div>
-    </div>
 
-    <script>
-      document.getElementById('formRegistroV').addEventListener('submit', function(e) {
-        const placa = document.getElementById('plac_veh').value.trim();
-        if (!placa) {
-          e.preventDefault();
-          alert('Por favor, ingrese la placa del vehículo');
-          return false;
-        }
-      });
-    </script>
+      <!-- Remove this line as we don't need it anymore -->
+      <!-- <div class="borde-verde"></div> -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
-</html>
+      <script>
+        document.getElementById('formRegistroV').addEventListener('submit', function(e) {
+          const placa = document.getElementById('plac_veh').value.trim();
+          if (!placa) {
+            e.preventDefault();
+            alert('Por favor, ingrese la placa del vehículo');
+            return false;
+          }
+        });
+      </script>
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+  </html>
