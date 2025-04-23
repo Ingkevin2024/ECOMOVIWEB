@@ -36,11 +36,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt = $conn->prepare($sql); // Prepara la consulta
     $stmt->bind_param("ss", $num_doc_usu, $rol); // Asocia los parámetros a la consulta
     $stmt->execute(); // Ejecuta la consulta
-    $result = $stmt->get_result(); // Obtiene los resultados
+    $resultUsuario = $stmt->get_result(); // Obtiene los resultados
+
+    // Consulta preparada para prevenir inyecciones SQL
+    $sql = "SELECT * FROM supervisor WHERE num_doc_usu = ? AND rol = ?";
+    $stmt = $conn->prepare($sql); // Prepara la consulta
+    $stmt->bind_param("ss", $num_doc_usu, $rol); // Asocia los parámetros a la consulta
+    $stmt->execute(); // Ejecuta la consulta
+    $resultSupervisor = $stmt->get_result(); // Obtiene los resultados
 
     // Verifica si existe un usuario con esos datos
-    if ($result->num_rows > 0) {
-        $user = $result->fetch_assoc(); // Extrae los datos del usuario
+    if ($resultUsuario->num_rows > 0 || $resultSupervisor->num_rows > 0) {
+        $user = $resultSupervisor->fetch_assoc();
+        $user = $resultUsuario->fetch_assoc(); // Extrae los datos del usuario
         $_SESSION['nombre'] = $user['nombre']; // Guarda el nombre en la sesión
         $_SESSION['rol'] = $rol; // Guarda el rol en la sesión
 
