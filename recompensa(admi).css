@@ -221,7 +221,7 @@ nav a {
 
 .modal-contenido input::placeholder,
 .modal-contenido textarea::placeholder {
-    color: #95a5a6;
+    color: rgb(14, 14, 14);
     font-size: 14px;
 }
 
