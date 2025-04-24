@@ -185,7 +185,7 @@
               <label for="tecno_m" class="form-label">Tecnomecánica +Foto:</label>
               <input
                 type="text"
-                class="form-control"
+                class="form-control mb-3"
                 id="tecno_m"
                 name="tecno_m"
                 placeholder="ingrese número de tecnomecánica"
@@ -205,7 +205,7 @@
               <label for="soat" class="form-label">SOAT +Foto:</label>
               <input
                 type="text"
-                class="form-control"
+                class="form-control mb-3"
                 id="soat"
                 name="soat"
                 placeholder="ingrese número de soat"
@@ -345,20 +345,40 @@
         </form>
       </div>
 
-      <!-- Remove this line as we don't need it anymore -->
-      <!-- <div class="borde-verde"></div> -->
 
       <script>
         document.getElementById('formRegistroV').addEventListener('submit', function(e) {
           const placa = document.getElementById('plac_veh').value.trim();
-          if (!placa) {
-            e.preventDefault();
-            alert('Por favor, ingrese la placa del vehículo');
-            return false;
+          const numericInputs = [
+              'tecno_m',
+              'soat',
+              'num_motor_veh',
+              'capaci_veh',
+              'num_chasis_veh',
+              'model_veh'
+          ];
+      
+          // Check for negative numbers
+          for (let inputId of numericInputs) {
+              const input = document.getElementById(inputId);
+              const value = input.value.trim();
+              if (value < 0) {
+                  e.preventDefault();
+                  alert('No se permiten números negativos en ningún campo numérico');
+                  input.focus();
+                  return false;
+              }
           }
-        });
+      
+          if (!placa) {
+              e.preventDefault();
+              alert('Por favor, ingrese la placa del vehículo');
+              return false;
+          }
+      });
       </script>
 
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     </body>
   </html>
+
