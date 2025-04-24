@@ -99,7 +99,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>
             Swal.fire({
                 icon: 'error',
-                title: 'Placa ya registrada',
+                title: 'Placa ya esta registrada',
                 text: 'La placa $plac_veh ya se encuentra registrada en el sistema',
                 confirmButtonColor: '#28a745'
             }).then(function() {
