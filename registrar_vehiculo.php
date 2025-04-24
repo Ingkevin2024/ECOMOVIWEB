@@ -109,8 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
     
-    // Continue with your existing insert query if the plate doesn't exist
-    $stmt = $conn->prepare("INSERT INTO vehiculos (plac_veh, mar_veh, tip_veh) VALUES (?, ?, ?)");
+    // Use the previously prepared statement with all parameters
     if ($stmt->execute()) {
         echo "<script>
                 alert('Vehículo registrado exitosamente');
