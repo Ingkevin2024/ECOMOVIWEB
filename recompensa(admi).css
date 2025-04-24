@@ -1,26 +1,14 @@
 body {
-    height: 100vh;
-    margin: 0;
-    justify-content: center;
-    align-items: center;
-    background: url(images/fonfi.jpeg) no-repeat center center;
-    background-size: cover;
-    background-attachment: fixed;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    position: relative;
+    margin: 0;
+    padding: 0;
+    background-image: url(fondoauto.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: rgb(0, 0, 0);
 }
-
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: -1;
-}
-
 
 header nav {
    border: 1px solid #effcf6;
@@ -152,7 +140,8 @@ nav a {
     transform: scale(0.98);
 }
 
-
+/* Estilo Modal */
+/* Add these styles to your CSS file */
 .modal {
     display: none;
     position: fixed;
@@ -310,7 +299,26 @@ nav a {
     transform: rotate(180deg) scale(1.2);
 }
 
+@keyframes gradientMove {
+    0% { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+}
 
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    0% { 
+        transform: translateY(-70px);
+        opacity: 0;
+    }
+    100% { 
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
 
 .modal-contenido input[type="text"],
 .modal-contenido input[type="number"],
@@ -398,7 +406,27 @@ nav a {
     border-color: #4CAF50;
     background-color: #f9f9f9;
 }
+titulo{
+    font-size: 2.5rem;
+    color: rgb(255, 255, 255);
+    font-family: "Ribeye Marrow", serif;
+    text-align: center;
+    flex-grow: 1;    
+}
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
+body {
+    animation: fade-in 2s ease-in-out;
+}
 
 /* Estilos adicionales para el botón de inicio */
 nav a {
@@ -448,7 +476,8 @@ nav a:hover {
     transform: scale(0.98);
 }
 
-
+/* Estilo Modal */
+/* Add these styles to your CSS file */
 .modal {
     display: none;
     position: fixed;
@@ -594,7 +623,26 @@ nav a:hover {
     transform: rotate(180deg) scale(1.2);
 }
 
+@keyframes gradientMove {
+    0% { background-position: 100% 0; }
+    100% { background-position: -100% 0; }
+}
 
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    0% { 
+        transform: translateY(-70px);
+        opacity: 0;
+    }
+    100% { 
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
 
 .modal-contenido input[type="text"],
 .modal-contenido input[type="number"],
@@ -682,10 +730,24 @@ nav a:hover {
     border-color: #4CAF50;
     background-color: #f9f9f9;
 }
-.titulo{
+titulo{
     font-size: 2.5rem;
     color: rgb(255, 255, 255);
     font-family: "Ribeye Marrow", serif;
     text-align: center;
     flex-grow: 1;    
+}
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body {
+    animation: fade-in 2s ease-in-out;
 }
