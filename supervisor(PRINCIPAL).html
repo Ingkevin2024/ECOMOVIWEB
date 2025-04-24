@@ -43,7 +43,7 @@
                 <div class="card">
                     <img src="iconos botones/cerrar-sesion.png" alt="Recompensa Icono" class="card-icon">
                     <h2>CERRAR SESION</h2>
-                    <a href="" class="btn">
+                    <a href="paginapri.html" class="btn">
                         <img src="iconos botones/cerrar-sesion.png" alt="Modificar Icono" class="btn-icon">
                         salir
                     </a>
@@ -82,26 +82,4 @@
         </div>
     </div>
 </footer>
-
-<!-- Script para animar los contadores -->
-<script>
-    window.onload = function () {
-        animateNumber('usuarios-activos', 9);
-        animateNumber('nuevos_administradores', 200);
-    };
-
-    function animateNumber(elementId, targetNumber) {
-        let currentNumber = 0;
-        const element = document.getElementById(elementId);
-        const interval = setInterval(function () {
-            if (currentNumber < targetNumber) {
-                currentNumber++;
-                element.innerText = currentNumber;
-            } else {
-                clearInterval(interval);
-            }
-        }, 20);
-    }
-</script>
-
 </html>
