@@ -196,6 +196,35 @@ if ($ya_registrado_hoy) {
                 font-size: 1.3em;
             }
         }
+
+                .back-button {
+                    position: absolute;
+                    left: calc(35% - 400px);
+                    top: 100%;
+                    transform: translateY(-50%);
+                    padding: 12px 24px;
+                    background: #28a745;
+                    color: white;
+                    border: none;
+                    border-radius: 20px;
+                    cursor: pointer;
+                    font-size: 16px;
+                    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+                    transition: all 0.3s ease;
+                    text-decoration: none;
+                }
+        
+                .back-button:hover {
+                    background: #218838;
+                    transform: translateY(-50%) scale(1.05);
+                }
+        
+                @media (max-width: 1200px) {
+                    .back-button {
+                        position: fixed;
+                        left: 20px;
+                    }
+                }
     </style>
 </head>
 <body>
@@ -218,8 +247,10 @@ if ($ya_registrado_hoy) {
         </div>
     </div>
 
-<div class="container">
-    <h2>REGISTRO DE MOVILIDAD</h2>
+    <a href="RegistroV.php" class="back-button">← Volver</a>
+
+    <div class="container">
+        <h2>REGISTRO DE MOVILIDAD</h2>
     <?php if (!empty($id_veh)): ?>
     <div class="puntos">
         <h4>Puntos <?= htmlspecialchars($puntos ?? 0) ?></h4>
