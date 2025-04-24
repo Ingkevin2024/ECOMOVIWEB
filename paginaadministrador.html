@@ -95,25 +95,6 @@
         </div>
     </div>
 </footer>
-<script>
-    window.onload = function () {
-        animateNumber('usuarios-activos', 10000000);
-        animateNumber('nuevos_administradores', 100);
-    };
 
-    function animateNumber(elementId, targetNumber) {
-        let currentNumber = 0;
-        const element = document.getElementById(elementId);
-        const interval = setInterval(function () {
-            if (currentNumber < targetNumber) {
-                currentNumber++;
-                element.innerText = currentNumber;
-            } else {
-                clearInterval(interval);
-            }
-        }, 20);
-    }
-
-</script>
 </html>
 
