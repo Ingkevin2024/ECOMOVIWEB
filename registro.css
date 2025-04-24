@@ -61,7 +61,7 @@ select {
 button[type="submit"] {
     width: 100%;
     padding: 10px;
-    background-color: #28a745; /color del boton/
+    background-color: #28a745; /* color del boton */
     color: white;
     border: none;
     border-radius: 4px;
@@ -110,5 +110,5 @@ button:hover {
 
 .btn-volver:hover {
     background-color: #1e7e34;
-    transform: translateY(-2px); 
+    transform: translateY(-2px);
 }
