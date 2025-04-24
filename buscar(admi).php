@@ -89,11 +89,12 @@ $resultVehiculos = $conn->query($sqlVehiculos);
                     echo "<button class='btn-documentos' onclick=\"abrirModal('docModal_" . $vehiculo['plac_veh'] . "')\">Documentos</button>";
                     echo "<button class='btn-documentos' onclick=\"abrirModal('kmModal_" . $vehiculo['plac_veh'] . "')\">Ver Kilometraje</button>";
 
+
                     echo "</div>";
 
                     
                 }
-                echo "<p class='notificacion-verde'><strong>$cantidadVehiculos</strong> vehículos están registrados</p>";
+                echo "<p class='notificacion-verde'>los<strong>$cantidadVehiculos</strong> vehículos están registrados </p>";
                 echo "</div>";
             } else {
                 echo "<p>No hay vehículos registrados.</p>";
@@ -106,10 +107,10 @@ $resultVehiculos = $conn->query($sqlVehiculos);
     if (isset($resultVehiculos) && $resultVehiculos->num_rows > 0) {
         $resultVehiculos->data_seek(0);
         while ($vehiculo = $resultVehiculos->fetch_assoc()) {
-            echo "<div id='docModal_" . $vehiculo['plac_veh'] . "' class='modal' style='display: none;'>";
-            echo "<div class='modal-content'>";
+            echo "<div id='docModal_" . $vehiculo['plac_veh'] . "' class='content_documentos' style='display: none;'>";
+            echo "<div class='modal-documentos'>";
             echo "<span class='close' onclick=\"cerrarModal('docModal_" . $vehiculo['plac_veh'] . "')\">&times;</span>";
-            echo "<h2>Documentos de " . $vehiculo['plac_veh'] . "</h2>";
+            echo "<h2 class='modal-title'>Documentos de " . $vehiculo['plac_veh'] . "</h2>";
 
             echo "<div class='documentos-container'>";
 
@@ -118,7 +119,7 @@ $resultVehiculos = $conn->query($sqlVehiculos);
             if (isset($vehiculo['foto_soat']) && !empty($vehiculo['foto_soat'])) {
                 echo "<img src='" . $vehiculo['foto_soat'] . "' alt='SOAT' width='200px'>";
             } else {
-                echo "<p>SOAT no disponible</p>";
+                echo "<p class='not-available'>⚠️ SOAT no disponible</p>";
             }
             echo "</div>";
 
@@ -127,7 +128,8 @@ $resultVehiculos = $conn->query($sqlVehiculos);
             if (isset($vehiculo['foto_tecno']) && !empty($vehiculo['foto_tecno'])) {
                 echo "<img src='" . $vehiculo['foto_tecno'] . "' alt='Tecnomecánica' width='200px'>";
             } else {
-                echo "<p>Tecnomecánica no disponible</p>";
+                echo "<p class='not-available'>⚠️ Tecnomecánica no disponible</p>";
+
             }
             echo "</div>";
 
@@ -138,7 +140,6 @@ $resultVehiculos = $conn->query($sqlVehiculos);
     }
 ?>
 
-*modal del Kilometraje*
 <?php
 if (isset($resultVehiculos)) {
     $resultVehiculos->data_seek(0);
@@ -154,10 +155,11 @@ if (isset($resultVehiculos)) {
         $resultMovilidad = $conn->query($sqlMovilidad);
 
         // Modal de kilometraje
-        echo "<div id='kmModal_$placa' class='modal' style='display: none;'>
-                <div class='modal-content'>
-                    <span class='close' onclick=\"cerrarModal('kmModal_$placa')\">&times;</span>
-                    <h2>Historial de Kilometraje - Vehículo $placa</h2>";
+        echo "<div id='kmModal_$placa' class='modal-km-container' style='display: none;'>
+        <div class='modal-km-content'>
+            <span class='modal-km-close' onclick=\"cerrarModal('kmModal_$placa')\">&times;</span>
+            <h2 class='modal-km-title'>🚗Historial de Kilometraje - Vehículo $placa</h2>";
+
 
         if ($resultMovilidad && $resultMovilidad->num_rows > 0) {
             echo "<div class='movilidad-registros'>";
@@ -187,8 +189,6 @@ if (isset($resultVehiculos)) {
                 echo "</div>";
                 echo "</div>"; // cierre registro-fotos
 
-            
-                echo "<hr>";
                 echo "</div>"; // cierre registro-movilidad
             }
             echo "</div>";
