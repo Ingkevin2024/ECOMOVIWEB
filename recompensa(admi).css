@@ -143,7 +143,7 @@ nav a {
 /* Estilo Modal */
 /* Add these styles to your CSS file */
 .modal {
-   display: none;
+    display: none;
     position: fixed;
     z-index: 700;
     left: 0;
@@ -153,26 +153,27 @@ nav a {
     background-color: rgba(0,0,0,0.8);
     animation: fadeIn 0.4s ease;
     backdrop-filter: blur(8px);
-
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: auto;
+
 }
 
 .modal-contenido {
-    background-color: rgba(230, 243, 217, 0.27) !important; /* equivale a #e6f3d946 */
+    background-color: rgba(230, 243, 217, 0.27) !important;
     background-image: none !important;
-    padding: 35px;
+    padding: 20px 15px;
     width: 92%;
-    max-width: 300px;
+    max-width: 400px; /* más ancho */
     border-radius: 25px;
     box-shadow: 0 15px 40px rgba(0,0,0,0.3);
     animation: slideIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     position: relative;
     max-height: 90vh;
-    overflow: hidden;
-    flex-direction: column;
+    overflow-y: auto;
     display: flex;
+    flex-direction: column; 
 }
 
 .modal-contenido::before {
@@ -188,7 +189,8 @@ nav a {
 }
 
 .modal-contenido h2 {
-    color: #2c3e50;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
     margin-bottom: 25px;
     font-size: 28px;
     text-align: center;
@@ -200,13 +202,12 @@ nav a {
 .modal-contenido input[type="text"],
 .modal-contenido input[type="number"],
 .modal-contenido textarea {
-    width: 100%;
-    padding: 15px;
-    margin: 15px 0;
+   width: 95% !important;
+    padding: 10px !important; 
+    margin: 6px 0 !important;       
     border: 2px solid #e9ecef;
-    border-radius: 15px;
-    font-size: 16px;
-    transition: all 0.4s ease;
+    border-radius: 10px; 
+    font-size: 14px !important;    
     background: rgba(255, 255, 255, 0.95);
     color: rgb(14, 14, 14);
 }
@@ -228,13 +229,13 @@ nav a {
 .modal-contenido button {
     background: linear-gradient(45deg, #2ecc71, #27ae60);
     color: white;
-    padding: 16px 35px;
+    padding: 12px 25px;
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
-    margin-top: 25px;
+    margin-top: 15px;
     transition: all 0.4s ease;
     text-transform: uppercase;
     letter-spacing: 1.5px;
