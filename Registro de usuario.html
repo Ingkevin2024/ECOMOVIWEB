@@ -22,9 +22,18 @@
         function validarFormulario(event) {
             const fechaNacimiento = document.getElementById('fecha_nacimiento').value;
             const edad = calcularEdad(fechaNacimiento);
+            const numDocumento = document.getElementById('num_doc_usu').value;
+        
             if (edad < 18) {
                 alert('Debes ser mayor de 18 años para registrarte.');
                 event.preventDefault();
+                return;
+            }
+        
+            if (numDocumento < 0) {
+                alert('El número de documento no puede ser negativo.');
+                event.preventDefault();
+                return;
             }
         }
     </script>
@@ -200,7 +209,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="num_doc_usu" class="form-label">Número de Documento:</label>
-                                <input type="number" class="form-control" id="num_doc_usu" name="num_doc_usu" placeholder="Ingresa número de documento" required>
+                                <input type="number" class="form-control" id="num_doc_usu" name="num_doc_usu" 
+                                       placeholder="Ingresa número de documento" min="0" required>
                             </div>
                             <div class="mb-3">
                                 <label for="direccion" class="form-label">Dirección:</label>
