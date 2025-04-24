@@ -187,10 +187,9 @@ $mail->AltBody = 'Tu redención ha sido completada. Código de redención: ' . $
     } else {
         $mensajeRedencion = "No tienes suficientes puntos o la recompensa ya no está disponible.";
     }
-    // Redirecciona para evitar reenvío accidental
-header("Location: " . $_SERVER['PHP_SELF']);
-exit();
-
+    // Redirect with message
+    header("Location: " . $_SERVER['PHP_SELF'] . "?mensaje=" . urlencode($mensajeRedencion));
+    exit();
 }
 
 
@@ -374,6 +373,14 @@ while ($row = $resultRecompensas->fetch_assoc()) {
     <a href="iniusu.html" class="botoncito">
     <i class="fas fa-arrow-left"></i>Regresar
     </a>
+
+    <?php if (isset($_GET['mensaje'])): ?>
+    <div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-4" style="z-index: 1050;" role="alert">
+        <?= htmlspecialchars($_GET['mensaje']) ?>
+        <button type="button" aria-label="Close" class="btn-close" data-bs-dismiss="alert" ></button>
+    </div>
+    <?php endif; ?>
+
     <div class="container mt-5">
     <link rel="stylesheet" href="estilousuario.css">
     <link rel="icon" href="logo blanco.png" type="image/png">
