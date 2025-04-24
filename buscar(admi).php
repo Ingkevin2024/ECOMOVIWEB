@@ -30,9 +30,12 @@
 
     <div>
         <form method="POST" action="" id="search-form">
-            <input type="text" name="identificacion" id="search-input" 
-                   placeholder="Escribe el número de Identificación..." required
-                   value="<?php echo isset($_POST['identificacion']) ? $_POST['identificacion'] : ''; ?>">
+            <div class="search-container">
+                <input type="text" name="identificacion" id="search-input" 
+                       placeholder="Escribe el número de Identificación..." required
+                       value="<?php echo isset($_POST['identificacion']) ? $_POST['identificacion'] : ''; ?>">
+                <button type="submit" class="search-button">Consultar</button>
+            </div>
         </form>
     </div>
     <?php
@@ -51,7 +54,7 @@
         $identificacion = $conn->real_escape_string($_POST["identificacion"]);
 
         $sql = "SELECT nom_usu, apell_usu, num_doc_usu FROM usuarios WHERE num_doc_usu = '$identificacion'";
-        $resultado = $conn->query(query: $sql);
+        $resultado = $conn->query($sql);
 
         if ($resultado->num_rows > 0) {
             $usuario = $resultado->fetch_assoc();
@@ -63,7 +66,7 @@
             echo "</div>";
 
             $sqlVehiculos = "SELECT plac_veh, mar_veh, model_veh, foto_soat, tecno_m FROM vehiculos";
-$resultVehiculos = $conn->query($sqlVehiculos);
+            $resultVehiculos = $conn->query($sqlVehiculos);
 
         } else {
             echo "<p class='usuario-no-registrado'>⚠ EL USUARIO NO ESTÁ REGISTRADO</p>";
@@ -145,20 +148,20 @@ if (isset($resultVehiculos)) {
     $resultVehiculos->data_seek(0);
 
     while ($vehiculo = $resultVehiculos->fetch_assoc()) {
-        $placa = $vehiculo['plac_veh'];
+        $plac_veh = $vehiculo['plac_veh'];
 
         // Consulta historial de movilidad
         $sqlMovilidad = "SELECT fecha_inicial, hora_inicial, fecha_final, hora_final, puntos, foto_inicial, foto_final 
                          FROM movilidad 
-                         WHERE placa = '$placa' 
+                         WHERE plac_veh = '$plac_veh' 
                          ORDER BY fecha_inicial DESC";
         $resultMovilidad = $conn->query($sqlMovilidad);
 
         // Modal de kilometraje
-        echo "<div id='kmModal_$placa' class='modal-km-container' style='display: none;'>
+        echo "<div id='kmModal_$plac_veh' class='modal-km-container' style='display: none;'>
         <div class='modal-km-content'>
-            <span class='modal-km-close' onclick=\"cerrarModal('kmModal_$placa')\">&times;</span>
-            <h2 class='modal-km-title'>🚗Historial de Kilometraje - Vehículo $placa</h2>";
+            <span class='modal-km-close' onclick=\"cerrarModal('kmModal_$plac_veh')\">&times;</span>
+            <h2 class='modal-km-title'>🚗Historial de Kilometraje - Vehículo $plac_veh</h2>";
 
 
         if ($resultMovilidad && $resultMovilidad->num_rows > 0) {
