@@ -22,13 +22,25 @@ body::before {
 }
 
 
+
 .container {
     width: 40%;
     margin: 50px auto;
-    background-color: #e6f3d946; /* color del fondo del formulario */
+    background-color: #e6f3d946;
     padding: 20px;
-    /* border  */
     border-radius: 10px;
+    border: 2px solid #00FF00;
+    box-shadow: 0 0 20px #00FF00;
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 10px #00FF00;
+    }
+    to {
+        box-shadow: 0 0 25px #00FF00, 0 0 30px #00FF00;
+    }
 }
 
 h2 {
