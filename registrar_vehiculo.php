@@ -1,3 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registrar Vehículo</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
 <?php
 // Database connection
 $servername = "localhost";
@@ -80,6 +88,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $num_motor_veh, $clase_veh, $combus_veh, $capaci_veh, 
         $num_chasis_veh, $model_veh, $vehicle_photo);
 
+    // Add this check before the insert query
+    // Modify the duplicate check section
+    $check_placa = $conn->prepare("SELECT plac_veh FROM vehiculos WHERE plac_veh = ?");
+    $check_placa->bind_param("s", $plac_veh);
+    $check_placa->execute();
+    $result = $check_placa->get_result();
+    
+    if ($result->num_rows > 0) {
+        echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Placa ya registrada',
+                text: 'La placa $plac_veh ya se encuentra registrada en el sistema',
+                confirmButtonColor: '#28a745'
+            }).then(function() {
+                window.history.back();
+            });
+        </script>";
+        exit();
+    }
+    
+    // Continue with your existing insert query if the plate doesn't exist
+    $stmt = $conn->prepare("INSERT INTO vehiculos (plac_veh, mar_veh, tip_veh) VALUES (?, ?, ?)");
     if ($stmt->execute()) {
         echo "<script>
                 alert('Vehículo registrado exitosamente');
@@ -96,3 +127,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 ?>
+</body>
+</html>
