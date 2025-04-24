@@ -78,23 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vehiculo_id'], $_POST
         $puntosRestantes -= $puntosADescontar;
     }
 
-    // Continue with the rest of the reward claiming process...
-    // Actualizar puntos en la tabla movilidad
-    $stmtUpdatePuntos = $conn->prepare("
-        UPDATE movilidad 
-        SET puntos = CASE
-            WHEN puntos >= ? THEN puntos - ?
-            ELSE puntos
-            END
-        WHERE plac_veh = ? 
-        AND fecha_final IS NOT NULL 
-        AND puntos > 0
-        ORDER BY fecha_final DESC
-        LIMIT 1
-    ");
-    $stmtUpdatePuntos->bind_param("iis", $puntosDescontar, $puntosDescontar, $vehiculosId);
-    $stmtUpdatePuntos->execute();
-
+    // Remove the duplicate point deduction code and continue with reward process
     // Actualizar disponibilidad de la recompensa
     $stmtUpdateRecompensa = $conn->prepare("
         UPDATE recompensa 
@@ -153,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vehiculo_id'], $_POST
 
         <div style="background-color:#f2f2f2; padding: 15px; border-radius: 8px; margin-top: 20px;">
             <p style="font-size: 15px; margin: 0;">
-                Preséntate con el siguiente <strong>código de redención</strong> para reclamar tu recompensa:
+                Preséntate con el siguiente <strong>código de la recompensa</strong> para reclamar tu recompensa:
             </p>
             <p style="font-size: 22px; color: #4CAF50; margin: 10px 0;"><strong>' . $codigoRedencion . '</strong></p>
             <p style="font-size: 14px; color: #555; margin: 0;">
@@ -472,7 +456,6 @@ while ($row = $resultRecompensas->fetch_assoc()) {
     </div>
 </div>
 
-<!-- Add this style section in the head -->
 <style>
     .modal-content {
         border-radius: 15px;
