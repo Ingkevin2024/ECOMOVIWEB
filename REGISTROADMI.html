@@ -6,9 +6,33 @@
     <title>Registro-supervisor</title>
     <link rel="stylesheet" href="registro.css">
     <link rel="icon" href="logoecomovil.png" type="icon">
+    <style>
+        .botoncito {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            z-index: 1000;
+            padding: 15px 25px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-size: 16px;
+            text-decoration: none;
+        }
+
+        .botoncito:hover {
+            transform: translateY(-3px);
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
+    <a href="paginaadministrador.html" class="botoncito">Volver</a>
+    
     <div class="container">
         <h2>Registro de Supervisor</h2>
         <form id="registroForm" method="POST" action="register_supervisor.php">
@@ -48,9 +72,7 @@
             <div class="form-group">
                 <button type="submit"><b>Registrar</b></button>
             </div>
-            <a href="paginaadministrador.html" class="btn-volver">Volver</a>
         </form>
     </div>
-
 </body>
 </html>
