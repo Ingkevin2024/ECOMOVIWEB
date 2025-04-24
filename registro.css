@@ -50,6 +50,7 @@ input[type="text"],
 input[type="tel"],
 input[type="email"],
 input[type="file"],
+input[type="password"],
 select {
     width: 100%;
     padding: 10px;
