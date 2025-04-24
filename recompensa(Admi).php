@@ -122,14 +122,13 @@ $resultado = $conexion->query("SELECT * FROM recompensa");
             <div class="modal-contenido">
                 <span class="cerrar" onclick="cerrarModalEditar('<?= $nom_reco_id ?>')">&times;</span>
                 <h2>Editar Recompensa</h2>
-                // In the modal form, add a hidden input for the original name
                 <form method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="accion" value="editar">
                     <input type="hidden" name="nom_reco_original" value="<?= htmlspecialchars($row['nom_reco']) ?>">
                     <input type="text" name="nom_reco" value="<?= htmlspecialchars($row['nom_reco']) ?>" required>
                     <textarea name="descripcion" required style="width: 100%; min-height: 100px; margin-bottom: 10px; padding: 8px;"><?= htmlspecialchars($row['descripcion']) ?></textarea>
-                    <input type="number" name="puntos" value="<?= $row['puntos'] ?>" required>
-                    <input type="number" name="disponible" value="<?= $row['disponible'] ?>" placeholder="Cantidad disponible (máx. 200)" min="0" max="200" required>
+                    <input type="number" name="puntos" value="<?= $row['puntos'] ?>" min="0" required>
+                    <input type="number" name="disponible" value="<?= $row['disponible'] ?>" placeholder="Cantidad disponible (máx. 200)" min="0" max="200" required oninput="this.value = Math.abs(this.value)">
                     <p>Imagen actual:</p>
                     <img src="<?= htmlspecialchars($row['imagen_url']) ?>" alt="Imagen actual" width="100">
                     <input type="file" name="imagen" accept="image/*">
@@ -150,8 +149,8 @@ $resultado = $conexion->query("SELECT * FROM recompensa");
             <input type="hidden" name="accion" value="agregar">
             <input type="text" name="nom_reco" placeholder="Nombre de la recompensa" required>
             <textarea name="descripcion" placeholder="Descripción detallada de la recompensa" style="width: 100%; min-height: 100px; margin-bottom: 10px; padding: 8px;" required></textarea>
-            <input type="number" name="puntos" placeholder="Puntos requeridos" required>
-            <input type="number" name="disponible" placeholder="Cantidad disponible (máx. 200)" min="1" max="200" required>
+            <input type="number" name="puntos" placeholder="Puntos requeridos" min="0" required>
+            <input type="number" name="disponible" placeholder="Cantidad disponible (máx. 200)" min="0" max="200" required oninput="this.value = Math.abs(this.value)">
             <input type="file" name="imagen" accept="image/*" required>
             <button type="submit">Agregar</button>
         </form>
