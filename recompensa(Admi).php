@@ -38,10 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Similarly for the 'editar' action
     elseif ($accion === 'editar') {
+        $nom_reco_original = $_POST['nom_reco_original']; // Add this line
         $nom_reco = $_POST['nom_reco'];
         $descripcion = $_POST['descripcion'];
         $puntos = $_POST['puntos'];
-        $disponible = $_POST['disponible']; // Changed this line to use the actual value
+        $disponible = $_POST['disponible'];
     
         if (!empty($_FILES['imagen']['name'])) {
             $imagen = $_FILES['imagen']['name'];
@@ -49,12 +50,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             move_uploaded_file($_FILES['imagen']['tmp_name'], $ruta);
     
             $stmt = $conexion->prepare("UPDATE recompensa SET nom_reco = ?, descripcion = ?, puntos = ?, imagen_url = ?, disponible = ? WHERE nom_reco = ?");
-            $stmt->bind_param("ssisis", $nom_reco, $descripcion, $puntos, $ruta, $disponible, $nom_reco);
+            $stmt->bind_param("ssisis", $nom_reco, $descripcion, $puntos, $ruta, $disponible, $nom_reco_original);
         } else {
-            $stmt = $conexion->prepare("UPDATE recompensa SET descripcion = ?, puntos = ?, disponible = ? WHERE nom_reco = ?");
-            $stmt->bind_param("siis", $descripcion, $puntos, $disponible, $nom_reco);
+            $stmt = $conexion->prepare("UPDATE recompensa SET nom_reco = ?, descripcion = ?, puntos = ?, disponible = ? WHERE nom_reco = ?");
+            $stmt->bind_param("ssiis", $nom_reco, $descripcion, $puntos, $disponible, $nom_reco_original);
         }
-
         $stmt->execute();
         $stmt->close();
     } elseif ($accion === 'eliminar') {
@@ -122,8 +122,10 @@ $resultado = $conexion->query("SELECT * FROM recompensa");
             <div class="modal-contenido">
                 <span class="cerrar" onclick="cerrarModalEditar('<?= $nom_reco_id ?>')">&times;</span>
                 <h2>Editar Recompensa</h2>
+                // In the modal form, add a hidden input for the original name
                 <form method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="accion" value="editar">
+                    <input type="hidden" name="nom_reco_original" value="<?= htmlspecialchars($row['nom_reco']) ?>">
                     <input type="text" name="nom_reco" value="<?= htmlspecialchars($row['nom_reco']) ?>" required>
                     <textarea name="descripcion" required style="width: 100%; min-height: 100px; margin-bottom: 10px; padding: 8px;"><?= htmlspecialchars($row['descripcion']) ?></textarea>
                     <input type="number" name="puntos" value="<?= $row['puntos'] ?>" required>
