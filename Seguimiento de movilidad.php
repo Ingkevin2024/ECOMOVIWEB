@@ -230,12 +230,12 @@ if ($ya_registrado_hoy) {
          
     <form action="procesar_movilidad.php" method="POST" enctype="multipart/form-data">
     <label for="Departamento">Departamento:</label>
-    <input type="text" name="Departamento" required placeholder="Ingrese el departamento"
-           value="<?= htmlspecialchars($datos_primera_parte['departamento'] ?? '') ?>">
+    <input type="text" name="Departamento" required 
+           value="Antioquia" readonly>
 
     <label for="Municipio">Municipio:</label>
-    <input type="text" name="Municipio" required placeholder="Ingrese el municipio"
-           value="<?= htmlspecialchars($datos_primera_parte['municipio'] ?? '') ?>">
+    <input type="text" name="Municipio" required 
+           value="Medellín" readonly>
 
     <!-- En la sección del formulario -->
     <label for="plac_veh">Placa del Vehículo:</label>
