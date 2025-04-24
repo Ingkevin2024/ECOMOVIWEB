@@ -250,7 +250,33 @@
             box-shadow: 0 0 3px 3px #00ff00;
             animation: brillo 2s infinite ease-in-out;
         }
+        .aceptar-condiciones {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 15px 0;
+                            gap: 10px;
+                        }
 
+                        .aceptar-condiciones input[type="checkbox"] {
+                            width: 16px;
+                            height: 16px;
+                            margin: 0;
+                        }
+
+                        .aceptar-condiciones label {
+                            margin: 0;
+                            color: black;
+                        }
+
+                        .aceptar-condiciones a {
+                            color: #000000;
+                            text-decoration: none;
+                        }
+
+                        .aceptar-condiciones a:hover {
+                            text-decoration: underline;
+                        }
     </style>
 </head>
 <body>
@@ -269,7 +295,7 @@
                 <h2 class="text-center mb-4"><b>Iniciar sesión</b></h2>
 
                 <!-- Formulario de inicio de sesión -->
-                <form id="loginForm" action="iniciar_sesion.php" method="POST">
+                <form id="loginForm" action="iniciar_sesion.php" method="POST" onsubmit="return validarFormulario(event)">
                     <div class="form-group">
                         <label for="tipo_Inicio"><b>Iniciar sesión como</b></label>
                         <select required name="tipo_Inicio" class="form-control" id="tipo_Inicio">
@@ -290,9 +316,10 @@
                         <input type="password" class="form-control" name="contrasena" id="contrasena" placeholder="Ingrese su contraseña" required>
                     </div>
 
+                    
                     <div class="aceptar-condiciones">
-                        <input type="checkbox" id="acepta">
-                        <label for="acepta">Acepto los <a href="tyc.php">términos y condiciones</a> haciendo clic <strong>aquí</strong>.</label>
+                        <input type="checkbox" id="acepta" name="acepta" required>
+                        <label for="acepta"><a href="tyc.php"> Acepto los términos y condiciones haciendo clic <strong>aquí</strong> </a>.</label>
                     </div>
 
                     <button type="submit" class="botoncito-2">Iniciar sesión</button>
@@ -309,5 +336,17 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/iniciosesion.js"></script>
-</body>
+    <!-- Add this script before the closing body tag -->
+    <script>
+    function validarFormulario(event) {
+        const checkbox = document.getElementById('acepta');
+        if (!checkbox.checked) {
+            event.preventDefault();
+            alert('Selecciona la casilla de verificación si aceptas los términos y condiciones para continuar');
+            return false;
+        }
+        return true;
+    }
+    </script>
+    </body>
 </html>
