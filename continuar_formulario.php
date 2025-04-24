@@ -332,6 +332,11 @@ $stmt->bind_param("ssssi", $fecha_final, $hora_final, $ruta_foto_final, $puntos_
             <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
         </head>
         <body>
+            <!-- Add the back button -->
+            <a href="RegistroV.php" class="back-button">
+                <i class="fas fa-arrow-left"></i> Devolver
+            </a>
+            
             <div class="container">
                 <h2>Finalizar Registro de Movilidad</h2>
                 
@@ -379,3 +384,62 @@ $stmt->bind_param("ssssi", $fecha_final, $hora_final, $ruta_foto_final, $puntos_
                 }
             </script>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <style>
+                .back-button {
+                    position: fixed;
+                    left: 20px;
+                    top: 20px;
+                    padding: 10px 20px;
+                    background: #28a745;
+                    color: white;
+                    border: none;
+                    border-radius: 25px;
+                    cursor: pointer;
+                    font-size: 16px;
+                    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+                    transition: all 0.3s ease;
+                    text-decoration: none;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+        
+                .back-button:hover {
+                    background: #218838;
+                    transform: scale(1.05);
+                }
+            </style>
+
+            
+            <script>
+                function previewImage(input) {
+                    const preview = document.getElementById('preview');
+                    const previewContainer = document.getElementById('imagePreview');
+                    
+                    if (input.files && input.files[0]) {
+                        const reader = new FileReader();
+                        
+                        reader.onload = function(e) {
+                            preview.src = e.target.result;
+                            previewContainer.style.display = 'block';
+                        }
+                        
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+            </script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+            <script>
+                function actualizarHoraFinal() {
+                    const ahora = new Date();
+                    const fecha = ahora.toLocaleDateString();
+                    const hora = ahora.toLocaleTimeString();
+                    
+                    document.querySelector('.info-section p:nth-child(2)').innerHTML = '<strong>Fecha Final:</strong> ' + fecha;
+                    document.querySelector('.info-section p:nth-child(3)').innerHTML = '<strong>Hora Final:</strong> ' + hora;
+                }
+            
+                // Actualizar cada segundo
+                setInterval(actualizarHoraFinal, 1000);
+                actualizarHoraFinal(); // Ejecutar inmediatamente
+            </script>
