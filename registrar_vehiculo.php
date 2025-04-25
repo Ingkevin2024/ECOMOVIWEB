@@ -38,11 +38,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $model_veh = $_POST['model_veh'];
 
     // Validate required fields
-    if (empty($plac_veh) || empty($tip_veh) || empty($tarj_prop_veh)) {
+    if (empty($plac_veh) || empty($tip_veh) || empty($tarj_prop_veh) || empty($num_doc_usu)) {
         echo "<script>
                 alert('Por favor, complete todos los campos requeridos');
                 window.location.href = 'registrarv.html';
               </script>";
+        exit();
+    }
+
+    // Add user existence check
+    $check_user = $conn->prepare("SELECT num_doc_usu FROM usuarios WHERE num_doc_usu = ?");
+    $check_user->bind_param("s", $num_doc_usu);
+    $check_user->execute();
+    $user_result = $check_user->get_result();
+    
+    if ($user_result->num_rows == 0) {
+        echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Usuario no encontrado',
+                text: 'El número de documento no está registrado en el sistema',
+                confirmButtonColor: '#28a745'
+            }).then(function() {
+                window.history.back();
+            });
+        </script>";
         exit();
     }
 
@@ -76,17 +96,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Prepare SQL statement
+    // Get additional form data
+    $num_doc_usu = isset($_POST['num_doc_usu']) ? $_POST['num_doc_usu'] : '';
+    $puntos_totales = 0; // Default value for new vehicles
+
+    // Update SQL statement
     $sql = "INSERT INTO vehiculos (plac_veh, tip_veh, tarj_prop_veh, tecno_m, foto_tecno, 
             soat, foto_soat, mar_veh, lin_veh, color_veh, num_motor_veh, clase_veh, 
-            combus_veh, capaci_veh, num_chasis_veh, model_veh, vehicle_photo) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            combus_veh, capaci_veh, num_chasis_veh, model_veh, vehicle_photo, 
+            puntos_totales, num_doc_usu) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssssssssssss", 
+    $stmt->bind_param("ssssssssssssssssssi", 
         $plac_veh, $tip_veh, $tarj_prop_veh, $tecno_m, $foto_tecno, 
         $soat, $foto_soat, $mar_veh, $lin_veh, $color_veh, 
         $num_motor_veh, $clase_veh, $combus_veh, $capaci_veh, 
-        $num_chasis_veh, $model_veh, $vehicle_photo);
+        $num_chasis_veh, $model_veh, $vehicle_photo, 
+        $puntos_totales, $num_doc_usu);
 
     // Add this check before the insert query
     // Modify the duplicate check section
