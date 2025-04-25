@@ -245,7 +245,22 @@ body {
                 flex-direction: column;
                 align-items: center;
             }
-            
+            .documento-imagen {
+                max-width: 100%;
+                height: auto;
+                margin: 10px 0;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+
+            .documento-item {
+                margin: 20px 0;
+                padding: 15px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                background-color: #fff;
+            }
+
 
         /* Botón */
         .btn-documentos {
@@ -363,307 +378,120 @@ body {
         
         
         
+
 /* Fondo del modal */
 /* Estilo para el contenedor del modal */
 .modal {
-    display: block; /* Hacemos que el modal sea visible */
-    position: relative; /* Modal se comporta como parte del flujo de la página */
-    z-index: 1;
-    top: 0;
-    left: 50%; /* Centrado horizontal */
-    transform: translateX(-50%); /* Centrado perfecto */
-    width: 90%; /* Ajusta el modal al 90% del ancho disponible */
-    max-width: 1200px; /* Máximo ancho */
-    background-color: rgba(255, 255, 255, 0); /* Fondo blanco casi opaco */
-    border-radius: 8px; /* Opcionales: esquinas redondeadas para mejor estética */
-    overflow: hidden; /* Impide que el contenido se desborde del modal */
-    display: flex;
-    flex-direction: column; /* Asegura que los elementos se apilen */
-    padding: 20px; /* Espaciado interior del modal */
-}
-/* Estilo de la "X" de cierre */
-.close-modal {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 30px;
-    color: #f44336; /* Color rojo */
-    font-weight: bold;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-/* Cambiar el color de la "X" cuando el ratón pasa por encima */
-.close-modal:hover {
-    color: #d32f2f;
-}
-/* Contenido del modal */
-.modal-content {
-    background-color: #96b47846;
-    padding: 40px;
-    border: 1px solid #0f5320ab;
-    width: 100%; /* 100% de la anchura del contenedor */
-    max-width: 100%; /* No exceder el tamaño del contenedor */
-    max-height: 80vh; /* Altura máxima visible del modal */
-    overflow-y: auto; /* Desplazamiento solo si el contenido del modal es largo */
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    animation: aparecer 0.3s ease-out;
-    margin-top: 20px; /* Márgenes ajustados */
-    position: relative; /* Asegura que los elementos dentro estén posicionados con respecto al modal */
-    overflow: hidden;
-}
-
-
-
-/* Notificación verde (por ejemplo, de éxito) */
-.notification {
-    background-color: #4CAF50; /* Color verde */
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    position: absolute; /* Posicionamos la notificación dentro del modal */
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%); /* Centrado horizontal */
-    z-index: 1100;
-}
-
-@keyframes aparecer {
-    from { opacity: 0; transform: translateY(-30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-
-/* Botón de cerrar */
-.close {
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    color: #ff0000;
-    cursor: pointer;
-}
-.close:hover {
-    color: black;
-}
-
-
-/* Animación solo de opacidad */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-/* Animación suave */
-@keyframes aparecer {
-    from {opacity: 0; transform: translateY(-30px);}
-    to {opacity: 1; transform: translateY(0);}
-}
-
-/* Botón de cierre */
-/* Estilo del botón de cerrar */
-.close {
-    font-size: 36px;
-    font-weight: bold;
-    color: #00FF00; /* Verde brillante */
-    background-color: transparent; /* Fondo transparente */
-    border: none; /* Sin borde */
-    position: absolute;
-    top: 20px; /* Ajusta la distancia desde la parte superior */
-    right: 20px; /* Alineado a la derecha */
-    cursor: pointer;
-    padding: 10px;
-    transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Hover y focus */
-.close:hover,
-.close:focus {
-   
-    transform: scale(1.1); /* Aumenta ligeramente el tamaño */
-   
-}
-
-/* Contenedor del modal */
-.modal-km-container {
-    position: absolute;
-    z-index: 9999;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: auto; /* o un ancho específico */
-    max-width: 90%;
-    max-height: 90%;
-    overflow-y: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #53535300;
-    padding: 100px;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.288);
-    overflow: hidden;
-}
-
-/* Contenido del modal */
-.modal-km-content {
-    border: 9px solid #00FF00; /* Borde verde */
-    box-shadow: 0 0 28px #00FF00; /* Sombra verde */
-    background-color: rgba(255, 255, 255, 0.811); /* Fondo oscuro con algo de transparencia */
-    color: #000000; /* Color de texto blanco para contraste */
-    padding: 25px 30px;
-    border-radius: 12px;
-    width: 250vw;
-    max-width: 800px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-    position: relative;
-    animation: slideIn 0.3s ease;
-    overflow: hidden;
-}
-
-/* Alineación horizontal para las imágenes y fechas */
-.modal-km-images {
-    display: flex;
-    flex-wrap: nowrap; /* Evita que las imágenes se envuelvan */
-    justify-content: flex-start;
-    gap: 20px; /* Espacio entre las imágenes */
-    overflow-x: auto; /* Habilita el desplazamiento horizontal si las imágenes exceden el ancho */
-    margin-top: 20px;
-}
-
-/* Estilo de las imágenes dentro del modal */
-.modal-km-images img {
-    max-width: 100px; /* Limita el tamaño de las imágenes */
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    border: 2px solid #ddd; /* Borde sutil alrededor de cada imagen */
-}
-
-/* Diseño para las fechas en formato horizontal */
-.modal-km-dates {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    gap: 15px; /* Espacio entre las fechas */
-    margin-top: 20px;
-    font-size: 16px;
-    font-weight: 500;
-    color: #333;
-}
-
-/* Estilo para cada elemento de fecha */
-.modal-km-dates span {
-    padding: 10px;
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-/* Animación para que el modal se muestre suavemente */
-@keyframes slideIn {
-    from {
-        transform: translateY(-50px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-/* Estilo cuando un documento no está disponible (color rojo) */
-.not-available {
-    background-color: #ffcccc; /* Fondo rojo claro */
-    color: #ff0000; /* Color del texto rojo */
-    border-color: #ff0000; /* Borde rojo */
-    padding: 10px;
-    border-radius: 5px;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 10px;
-}
-
-
-/* Modal Overlay (Fondo oscuro) */
-.modal-documentos {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border: 2px solid #00FF00; /* Borde verde */
-    box-shadow: 0 0 28px #00FF00; /* Sombra verde */
     display: none;
-    position: absolute; /* Cambiado a fixed para que se quede fijo en la pantalla */
-    z-index: 1000; /* Asegura que el modal esté encima de todo */
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%); /* Esto centra el modal en la pantalla */
-    width: 70%;
-    height: auto; /* Cambiado a auto para ajustar el tamaño según el contenido */
-    background-color: rgb(166, 166, 166); /* Fondo blanco */
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; /* Alineamos el contenido desde la parte superior */
-    flex-direction: column; /* Esto permite que los elementos estén en columna */
-    animation: fadeIn 0.3s ease-in-out; /* Animación al aparecer */
-    border-radius: 10px;
-    padding-top: 30px; /* Espacio superior para el título */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
 }
 
-/* Estilo del título */
-.modal-documentos h2 {
-    font-size: 40px;
-    font-weight: 700;
-    color: #118538bd;
-    text-align: center; /* Centrado del texto */
-    margin: 0;
-    padding-bottom: 15px;
-    border-bottom: 3px solid #00cc44;
+.modal-content {
+    background-color: #ffffff5d;
+    margin: 5% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 900px;
+    border-radius: 8px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.vehiculo-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.documentos-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 15px;
     width: 100%;
 }
 
-
-/* Animación para que el modal se muestre suavemente */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-/* Contenedor del Modal */
-
-
-
-.search-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
+.documento-item {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-#search-input {
-    width: 300px;
+.documento-item p {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.documento-imagen {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 6px;
+    transition: transform 0.3s ease;
+}
+
+.documento-imagen:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .documentos-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+    
+    .documento-imagen {
+        height: 150px;
+    }
+}
+
+.close-modal {
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #555;
+}
+
+.close-modal:hover {
+    color: #000;
+}
+
+.not-available {
+    color: #ff4444;
+    text-align: center;
     padding: 10px;
-    border: 1px solid #ccc;
+    background-color: #fff3f3;
     border-radius: 4px;
-    font-size: 16px;
 }
 
-.search-button {
-    padding: 10px 30px;
+.btn-ver-vehiculos {
     background-color: #4CAF50;
     color: white;
+    padding: 10px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s;
+    margin-top: 10px;
 }
 
-.search-button:hover {
+.btn-ver-vehiculos:hover {
     background-color: #45a049;
 }
+
 
 /* Make the form display items in a row */
 #search-form {
