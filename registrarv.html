@@ -151,6 +151,11 @@
         <h2 class="text-center mb-4"><b>Registra tu Vehículo:</b></h2>
         <form id="formRegistroV" action="registrar_vehiculo.php" method="POST" enctype="multipart/form-data">
           <div class="row">
+            <div class="col-12 col-md-6 mb-3">
+              <label for="num_doc_usu" class="form-label">Número de documento:</label>
+              <input type="text" class="form-control" id="num_doc_usu" name="num_doc_usu" required
+                placeholder="Ingrese su número de documento" />
+            </div>
             <!-- Existing placa field -->
             <div class="col-12 col-md-6 mb-3">
               <label for="plac_veh" class="form-label">Placa del vehículo:</label>
