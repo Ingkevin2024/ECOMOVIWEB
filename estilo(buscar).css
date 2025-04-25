@@ -173,11 +173,11 @@ body {
             grid-template-columns: repeat(3, 1fr); /* 🔥 3 columnas */
             gap: 20px;
             padding: 50px;
-            max-height: 100%; /* Puedes ajustar si necesitas limitar la altura */
+        
             overflow-y: auto;
             justify-content: center;
             max-height: none;  /* ❌ sin límite de altura */
-            overflow: visible; /* ❌ sin scroll */
+            overflow: visibe; /* ❌ sin scroll */
             width: 100%;
         }
         
@@ -194,7 +194,7 @@ body {
             box-shadow: 0 0 10px #00FF00; /* Sombra verde alrededor del borde */
             padding-bottom: 60px;
             position: relative;
-            
+                 
         }
 
         .vehiculo-card:hover {
@@ -364,45 +364,76 @@ body {
         
         
 /* Fondo del modal */
+/* Estilo para el contenedor del modal */
 .modal {
-    display: none;
-    position: absolute;
-    z-index: 1000;
-    right: 1%;
-    top: 25%;
-    width: 100%;
-    height: 90%;
+    display: block; /* Hacemos que el modal sea visible */
+    position: relative; /* Modal se comporta como parte del flujo de la página */
+    z-index: 1;
+    top: 0;
+    left: 50%; /* Centrado horizontal */
+    transform: translateX(-50%); /* Centrado perfecto */
+    width: 90%; /* Ajusta el modal al 90% del ancho disponible */
+    max-width: 1200px; /* Máximo ancho */
     background-color: rgba(255, 255, 255, 0); /* Fondo blanco casi opaco */
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px; /* Opcional: esquinas redondeadas para mejor estética */
-    overflow: hidden; /* Esto también ayuda a evitar el desplazamiento */
+    border-radius: 8px; /* Opcionales: esquinas redondeadas para mejor estética */
+    overflow: hidden; /* Impide que el contenido se desborde del modal */
+    display: flex;
+    flex-direction: column; /* Asegura que los elementos se apilen */
+    padding: 20px; /* Espaciado interior del modal */
+}
+/* Estilo de la "X" de cierre */
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: #f44336; /* Color rojo */
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
 }
 
+/* Cambiar el color de la "X" cuando el ratón pasa por encima */
+.close-modal:hover {
+    color: #d32f2f;
+}
 /* Contenido del modal */
 .modal-content {
     background-color: #96b47846;
-    margin: 250px auto 0; /* ⬅️ Baja el modal más abajo */
     padding: 40px;
-    border: 1px solid #888;
-    width: 200%;
-    max-width: 1200px;
-    max-height: 130vh; /* ⬅️ Altura máxima visible */
-    overflow-y: auto; /* ⬅️ Scroll solo dentro del modal si es muy largo */
+    border: 1px solid #0f5320ab;
+    width: 100%; /* 100% de la anchura del contenedor */
+    max-width: 100%; /* No exceder el tamaño del contenedor */
+    max-height: 80vh; /* Altura máxima visible del modal */
+    overflow-y: auto; /* Desplazamiento solo si el contenido del modal es largo */
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     animation: aparecer 0.3s ease-out;
-    position: relative; /* ⬅️ Evita que esté fijo en pantalla */
-    z-index: 1050;
-    overflow: hidden; /* Esto también ayuda a evitar el desplazamiento */
+    margin-top: 20px; /* Márgenes ajustados */
+    position: relative; /* Asegura que los elementos dentro estén posicionados con respecto al modal */
+    overflow: hidden;
 }
 
 
-/* Animación solo opacidad */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+
+/* Notificación verde (por ejemplo, de éxito) */
+.notification {
+    background-color: #4CAF50; /* Color verde */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    position: absolute; /* Posicionamos la notificación dentro del modal */
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%); /* Centrado horizontal */
+    z-index: 1100;
 }
+
+@keyframes aparecer {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 
 /* Botón de cerrar */
 .close {
@@ -430,18 +461,29 @@ body {
 }
 
 /* Botón de cierre */
+/* Estilo del botón de cerrar */
 .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
+    font-size: 36px;
     font-weight: bold;
+    color: #00FF00; /* Verde brillante */
+    background-color: transparent; /* Fondo transparente */
+    border: none; /* Sin borde */
+    position: absolute;
+    top: 20px; /* Ajusta la distancia desde la parte superior */
+    right: 20px; /* Alineado a la derecha */
     cursor: pointer;
+    padding: 10px;
+    transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Hover y focus */
 .close:hover,
 .close:focus {
-    color: #000;
+   
+    transform: scale(1.1); /* Aumenta ligeramente el tamaño */
+   
 }
+
 /* Contenedor del modal */
 .modal-km-container {
     position: absolute;
@@ -557,13 +599,28 @@ body {
     transform: translate(-50%, -50%); /* Esto centra el modal en la pantalla */
     width: 70%;
     height: auto; /* Cambiado a auto para ajustar el tamaño según el contenido */
-    background-color: rgb(255, 255, 255); /* Fondo blanco */
+    background-color: rgb(166, 166, 166); /* Fondo blanco */
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* Alineamos el contenido desde la parte superior */
+    flex-direction: column; /* Esto permite que los elementos estén en columna */
     animation: fadeIn 0.3s ease-in-out; /* Animación al aparecer */
     border-radius: 10px;
+    padding-top: 30px; /* Espacio superior para el título */
 }
+
+/* Estilo del título */
+.modal-documentos h2 {
+    font-size: 40px;
+    font-weight: 700;
+    color: #118538bd;
+    text-align: center; /* Centrado del texto */
+    margin: 0;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #00cc44;
+    width: 100%;
+}
+
 
 /* Animación para que el modal se muestre suavemente */
 @keyframes fadeIn {
@@ -577,142 +634,6 @@ body {
 /* Contenedor del Modal */
 
 
-.modal-documentos .modal-content {
-    background-color: #ffffff;
-    padding: 30px 40px 40px 40px;
-    border-radius: 12px;
-    width: 80%;
-    max-width: 950px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    border: none;
-    overflow-y: auto;
-}
-
-/* Estilo del Título - Centrando el título */
-.modal-documentos .modal-title {
-    font-size: 36px;
-    font-weight: 700;
-    color: #333;
-    text-align: center; /* Centrado del texto */
-    margin-top: 0;
-    margin-bottom: 20px;
-    border-bottom: 3px solid #00cc0e; /* Línea de color azul sutil debajo */
-    padding: 20px;
-    text-align: center;
-    max-width: 700px;
-    padding-bottom: 12px;
-}
-
-/* Cuerpo del Modal */
-.modal-documentos .modal-body {
-    font-size: 18px;
-    color: #555;
-    line-height: 1.7;
-    margin-bottom: 25px;
-}
-
-/* Cuadro alrededor del texto (cuerpo del modal) */
-.modal-documentos .modal-body p {
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    margin-bottom: 25px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-}
-
-/* Botón para cerrar el modal */
-.modal-documentos .close {
-    color: #777;
-    font-size: 36px;
-    font-weight: bold;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-/* Hover en el botón de cierre */
-.modal-documentos .close:hover,
-.modal-documentos .close:focus {
-    color: #333;
-    transform: scale(1.2);
-}
-
-/* Estilo para el contenido de documentos (imagenes, links, etc.) */
-.modal-documentos .document-list {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 25px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 10px;
-    margin-top: 25px;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Diseño para los enlaces de documentos */
-.modal-documentos .document-list li {
-    padding: 15px;
-    margin: 5px 0;
-    list-style: none;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    width: 28%;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Hover sobre los elementos de documento */
-.modal-documentos .document-list li:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Estilo de los enlaces */
-.modal-documentos .document-list li a {
-    text-decoration: none;
-    color: #0066cc;
-    font-weight: 600;
-    display: block;
-}
-
-/* Hover sobre los enlaces de documento */
-.modal-documentos .document-list li a:hover {
-    text-decoration: underline;
-    color: #004b8d;
-}
-
-/* Estilo para las imágenes dentro del modal */
-.modal-documentos .document-images {
-    display: flex;
-    gap: 25px;
-    justify-content: space-between;
-    margin-top: 25px;
-}
-
-/* Ajuste de tamaño y estilo para las imágenes dentro del modal */
-.modal-documentos .document-images img {
-    width: 32%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-/* Hover en las imágenes dentro del modal */
-.modal-documentos .document-images img:hover {
-    transform: scale(1.05);
-}
-
-/* Diseño de los elementos dentro del modal (enlaces, imágenes, etc.) */
-.modal-documentos .document-list li, .modal-documentos .document-images img {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
 
 .search-container {
     display: flex;
@@ -750,3 +671,4 @@ body {
     align-items: center;
     justify-content: center;
 }
+
