@@ -61,47 +61,45 @@
             echo "<p>CC: " . $usuario['num_doc_usu'] . "</p>";
             echo "<button class='btn-ver-vehiculos' onclick=\"abrirModal('vehiculoModal')\">Ver Vehículos</button>";
             echo "</div>";
-
-            $sqlVehiculos = "SELECT plac_veh, mar_veh, model_veh, foto_soat, tecno_m FROM vehiculos";
+         
+            $sqlVehiculos = "SELECT plac_veh, mar_veh, model_veh, foto_soat, foto_tecno FROM vehiculos";
 $resultVehiculos = $conn->query($sqlVehiculos);
+
 
         } else {
             echo "<p class='usuario-no-registrado'>⚠ EL USUARIO NO ESTÁ REGISTRADO</p>";
         }
     }
     ?>
-
-    <div id="vehiculoModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close" onclick="cerrarModal('vehiculoModal')">&times;</span>
-            <h2>Vehículos Registrados</h2>
-            <?php
-            if (isset($resultVehiculos) && $resultVehiculos->num_rows > 0) {
-                $cantidadVehiculos = $resultVehiculos->num_rows;
-                echo "<div class='vehiculo-container'>";
+<div id="vehiculoModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <!-- X de cierre -->
+        <span class="close-modal" onclick="cerrarModal('vehiculoModal')">&times;</span>
+        <h2>Vehículos Registrados</h2>
+        <?php
+        if (isset($resultVehiculos) && $resultVehiculos->num_rows > 0) {
+            $cantidadVehiculos = $resultVehiculos->num_rows;
+            echo "<div class='vehiculo-container'>";
+            
+            while ($vehiculo = $resultVehiculos->fetch_assoc()) {
+                echo "<div class='vehiculo-card'>";
+                echo "<h3>Placa: " . $vehiculo['plac_veh'] . "</h3>";
+                echo "<p><strong>Marca:</strong> " . $vehiculo['mar_veh'] . "</p>";
+                echo "<p><strong>Modelo:</strong> " . $vehiculo['model_veh'] . "</p>";
                 
-                while ($vehiculo = $resultVehiculos->fetch_assoc()) {
-                    echo "<div class='vehiculo-card'>";
-                    echo "<h3>Placa: " . $vehiculo['plac_veh'] . "</h3>";
-                    echo "<p><strong>Marca:</strong> " . $vehiculo['mar_veh'] . "</p>";
-                    echo "<p><strong>Modelo:</strong> " . $vehiculo['model_veh'] . "</p>";
-                    
-                    echo "<button class='btn-documentos' onclick=\"abrirModal('docModal_" . $vehiculo['plac_veh'] . "')\">Documentos</button>";
-                    echo "<button class='btn-documentos' onclick=\"abrirModal('kmModal_" . $vehiculo['plac_veh'] . "')\">Ver Kilometraje</button>";
+                echo "<button class='btn-documentos' onclick=\"abrirModal('docModal_" . $vehiculo['plac_veh'] . "')\">Documentos</button>";
+                echo "<button class='btn-documentos' onclick=\"abrirModal('kmModal_" . $vehiculo['plac_veh'] . "')\">Ver Kilometraje</button>";
 
-
-                    echo "</div>";
-
-                    
-                }
-                echo "<p class='notificacion-verde'>los<strong>$cantidadVehiculos</strong> vehículos están registrados </p>";
                 echo "</div>";
-            } else {
-                echo "<p>No hay vehículos registrados.</p>";
             }
-            ?>
-        </div>
+            echo "<p class='notificacion-verde'><strong>$cantidadVehiculos</strong> vehículo(s) están registrados</p>";
+            echo "</div>";
+        } else {
+            echo "<p>No hay vehículos registrados.</p>";
+        }
+        ?>
     </div>
+</div>
 
     <?php
     if (isset($resultVehiculos) && $resultVehiculos->num_rows > 0) {
@@ -110,7 +108,7 @@ $resultVehiculos = $conn->query($sqlVehiculos);
             echo "<div id='docModal_" . $vehiculo['plac_veh'] . "' class='content_documentos' style='display: none;'>";
             echo "<div class='modal-documentos'>";
             echo "<span class='close' onclick=\"cerrarModal('docModal_" . $vehiculo['plac_veh'] . "')\">&times;</span>";
-            echo "<h2 class='modal-km-title'>Documentos de " . $vehiculo['plac_veh'] . "</h2>";
+            echo "<h2 class=''>Documentos de " . $vehiculo['plac_veh'] . "</h2>";
 
             echo "<div class='documentos-container'>";
 
@@ -123,15 +121,14 @@ $resultVehiculos = $conn->query($sqlVehiculos);
             }
             echo "</div>";
 
-            // Mostrar la imagen de la Tecnomecánica si está disponible
-            echo "<div class='documento-item'><p>Tecnomecánica:</p>";
+            echo "<div class='documento-item'><p>TECNOMECANICA:</p>";
             if (isset($vehiculo['foto_tecno']) && !empty($vehiculo['foto_tecno'])) {
-                echo "<img src='" . $vehiculo['foto_tecno'] . "' alt='Tecnomecánica' width='200px'>";
+                echo "<img src='" . $vehiculo['foto_tecno'] . "' alt='TECNOMECANICA' width='200px'>";
             } else {
-                echo "<p class='not-available'>⚠️ Tecnomecánica no disponible</p>";
-
+                echo "<p class='not-available'>⚠️ TECNOMECANICA no disponible</p>";
             }
             echo "</div>";
+         
 
             echo "</div>"; // Cierra el contenedor de documentos
 
@@ -150,14 +147,14 @@ if (isset($resultVehiculos)) {
         // Consulta historial de movilidad
         $sqlMovilidad = "SELECT fecha_inicial, hora_inicial, fecha_final, hora_final, puntos, foto_inicial, foto_final 
                          FROM movilidad 
-                         WHERE placa = '$placa' 
+                         WHERE plac_veh = '$placa' 
                          ORDER BY fecha_inicial DESC";
         $resultMovilidad = $conn->query($sqlMovilidad);
 
         // Modal de kilometraje
         echo "<div id='kmModal_$placa' class='modal-km-container' style='display: none;'>
         <div class='modal-km-content'>
-            <span class='modal-km-close' onclick=\"cerrarModal('kmModal_$placa')\">&times;</span>
+            <span class='close' onclick=\"cerrarModal('kmModal_$placa')\">&times;</span>
             <h2 class='modal-km-title'>🚗Historial de Kilometraje - Vehículo $placa</h2>";
 
 
