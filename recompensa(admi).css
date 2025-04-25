@@ -41,6 +41,9 @@ header nav {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+nav h2{
+    font-family: 'Times New Roman', Times, serif;
+}
 nav h1 {
     margin: 0;
     font-size: 0.9rem;
