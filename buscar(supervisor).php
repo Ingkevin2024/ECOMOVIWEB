@@ -60,18 +60,15 @@
             echo "<div class='usuario-info'>";
             echo "<h2>Nombre: " . $usuario['nom_usu'] . " " . $usuario['apell_usu'] . "</h2>";
             echo "<p>CC: " . $usuario['num_doc_usu'] . "</p>";
-            echo "<div class='buttons-container'>";
             echo "<button class='btn-ver-vehiculos' onclick=\"abrirModal('vehiculoModal')\">Ver Documentacion</button>";
-            echo "<button class='btn-ver-movilidad' onclick=\"abrirModal('movilidadModal')\">Ver Movilidad</button>";
             echo "</div>";
-            echo "</div>";
-
-            // Vehicle Modal
+         
             $sqlVehiculos = "SELECT plac_veh, mar_veh, model_veh, foto_soat, foto_tecno 
                             FROM vehiculos 
                             WHERE num_doc_usu = '$identificacion'";
             $resultVehiculos = $conn->query($sqlVehiculos);
 
+            // Mover la visualización de documentos al modal de vehículos
             echo "<div id='vehiculoModal' class='modal' style='display: none;'>";
             echo "<div class='modal-content'>";
             echo "<span class='close-modal' onclick=\"cerrarModal('vehiculoModal')\">&times;</span>";
@@ -111,62 +108,20 @@
             } else {
                 echo "<p>No hay vehículos registrados para este usuario.</p>";
             }
-            echo "</div>"; // close modal-content
-            echo "</div>"; // close vehiculoModal
-
-            // Mobility Modal
-            echo "<div id='movilidadModal' class='modal' style='display: none;'>";
-            echo "<div class='modal-content'>";
-            echo "<span class='close-modal' onclick=\"cerrarModal('movilidadModal')\">&times;</span>";
-            echo "<h2>Fotos de Movilidad</h2>";
-
-            // Get the vehicle plate first
-            $sqlPlaca = "SELECT plac_veh FROM vehiculos WHERE num_doc_usu = '$identificacion'";
-            $resultPlaca = $conn->query($sqlPlaca);
-
-            if ($resultPlaca && $resultPlaca->num_rows > 0) {
-                $vehiculo = $resultPlaca->fetch_assoc();
-                $placa = $vehiculo['plac_veh'];
-
-                // Now query movilidad table using placa
-                $sqlMovilidad = "SELECT foto_inicial, foto_final FROM movilidad WHERE plac_veh = '$placa'";
-                $resultMovilidad = $conn->query($sqlMovilidad);
-
-                if ($resultMovilidad && $resultMovilidad->num_rows > 0) {
-                    while ($movilidad = $resultMovilidad->fetch_assoc()) {
-                        echo "<div class='movilidad-container'>";
-                        
-                        // Initial Photo
-                        echo "<div class='documento-item'>";
-                        echo "<p>FOTO INICIAL:</p>";
-                        if (!empty($movilidad['foto_inicial'])) {
-                            echo "<img src='uploads/" . $movilidad['foto_inicial'] . "' alt='Foto Inicial' class='documento-imagen' onclick=\"window.open(this.src)\">";
-                        } else {
-                            echo "<p class='not-available'>⚠️ Foto inicial no disponible</p>";
-                        }
-                        echo "</div>";
-
-                        // Final Photo
-                        echo "<div class='documento-item'>";
-                        echo "<p>FOTO FINAL:</p>";
-                        if (!empty($movilidad['foto_final'])) {
-                            echo "<img src='uploads/" . $movilidad['foto_final'] . "' alt='Foto Final' class='documento-imagen' onclick=\"window.open(this.src)\">";
-                        } else {
-                            echo "<p class='not-available'>⚠️ Foto final no disponible</p>";
-                        }
-                        echo "</div>";
-                        
-                        echo "</div>"; // close movilidad-container
-                    }
-                } else {
-                    echo "<p>No hay fotos de movilidad disponibles para este usuario.</p>";
-                }
-            } // close if($resultPlaca)
             
-            echo "</div>"; // close modal-content
-            echo "</div>"; // close movilidadModal
-        } // close if($resultado)
-    } // close if($_SERVER)
+            echo "</div>"; // cierre modal-content
+            echo "</div>"; // cierre vehiculoModal
+        }
+         
+            echo "</div>"; // Cierra el contenedor de documentos
+
+            echo "</div></div>"; // Cierra el modal
+        }
+
+    
 ?>
+
+
+
 </body>
 </html>
