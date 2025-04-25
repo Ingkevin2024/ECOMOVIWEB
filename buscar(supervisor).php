@@ -23,7 +23,7 @@
             <img src="logo blanco.png" alt="Título" width="300px">
             <h1>BUSQUEDA DE USUARIO</h1>
             <ul>
-                <li><a href="paginaadministrador.html">INICIO</a></li>
+                <li><a href="supervisor(PRINCIPAL).html">INICIO</a></li>
             </ul>
         </nav>
     </header>
