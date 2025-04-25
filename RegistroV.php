@@ -206,7 +206,7 @@ while ($row = $resultRecompensas->fetch_assoc()) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>ECOMOVI - Redimir recompensa</title>
+    <title>EcoMovi - Redimir recompensa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         p{
