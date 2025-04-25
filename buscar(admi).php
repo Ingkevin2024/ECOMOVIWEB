@@ -51,7 +51,7 @@
         $identificacion = $conn->real_escape_string($_POST["identificacion"]);
 
         $sql = "SELECT nom_usu, apell_usu, num_doc_usu FROM usuarios WHERE num_doc_usu = '$identificacion'";
-        $resultado = $conn->query(query: $sql);
+        $resultado = $conn->query($sql);
 
         if ($resultado->num_rows > 0) {
             $usuario = $resultado->fetch_assoc();
@@ -62,79 +62,62 @@
             echo "<button class='btn-ver-vehiculos' onclick=\"abrirModal('vehiculoModal')\">Ver Vehículos</button>";
             echo "</div>";
          
-            $sqlVehiculos = "SELECT plac_veh, mar_veh, model_veh, foto_soat, foto_tecno FROM vehiculos";
-$resultVehiculos = $conn->query($sqlVehiculos);
+            $sqlVehiculos = "SELECT plac_veh, mar_veh, model_veh, foto_soat, foto_tecno 
+                            FROM vehiculos 
+                            WHERE num_doc_usu = '$identificacion'";
+            $resultVehiculos = $conn->query($sqlVehiculos);
 
+            // Mover la visualización de documentos al modal de vehículos
+            echo "<div id='vehiculoModal' class='modal' style='display: none;'>";
+            echo "<div class='modal-content'>";
+            echo "<span class='close-modal' onclick=\"cerrarModal('vehiculoModal')\">&times;</span>";
+            echo "<h2>Vehículos Registrados</h2>";
 
-        } else {
-            echo "<p class='usuario-no-registrado'>⚠ EL USUARIO NO ESTÁ REGISTRADO</p>";
-        }
-    }
-    ?>
-<div id="vehiculoModal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <!-- X de cierre -->
-        <span class="close-modal" onclick="cerrarModal('vehiculoModal')">&times;</span>
-        <h2>Vehículos Registrados</h2>
-        <?php
-        if (isset($resultVehiculos) && $resultVehiculos->num_rows > 0) {
-            $cantidadVehiculos = $resultVehiculos->num_rows;
-            echo "<div class='vehiculo-container'>";
+            if ($resultVehiculos && $resultVehiculos->num_rows > 0) {
+                while ($vehiculo = $resultVehiculos->fetch_assoc()) {
+                    echo "<div class='vehiculo-card'>";
+                    echo "<h3>Placa: " . $vehiculo['plac_veh'] . "</h3>";
+                    echo "<p><strong>Marca:</strong> " . $vehiculo['mar_veh'] . "</p>";
+                    echo "<p><strong>Modelo:</strong> " . $vehiculo['model_veh'] . "</p>";
+                    
+                    echo "<div class='documentos-container'>";
+                    // Mostrar SOAT
+                    echo "<div class='documento-item'>";
+                    echo "<p>SOAT:</p>";
+                    if (!empty($vehiculo['foto_soat'])) {
+                        echo "<img src='" . $vehiculo['foto_soat'] . "' alt='SOAT' class='documento-imagen'>";
+                    } else {
+                        echo "<p class='not-available'>⚠️ SOAT no disponible</p>";
+                    }
+                    echo "</div>";
+
+                    // Mostrar Tecnomecánica
+                    echo "<div class='documento-item'>";
+                    echo "<p>TECNOMECÁNICA:</p>";
+                    if (!empty($vehiculo['foto_tecno'])) {
+                        echo "<img src='" . $vehiculo['foto_tecno'] . "' alt='TECNOMECÁNICA' class='documento-imagen'>";
+                    } else {
+                        echo "<p class='not-available'>⚠️ TECNOMECÁNICA no disponible</p>";
+                    }
+                    echo "</div>";
+                    echo "</div>"; // cierre documentos-container
+                    
+                    echo "</div>"; // cierre vehiculo-card
+                }
+            } else {
+                echo "<p>No hay vehículos registrados para este usuario.</p>";
+            }
             
-            while ($vehiculo = $resultVehiculos->fetch_assoc()) {
-                echo "<div class='vehiculo-card'>";
-                echo "<h3>Placa: " . $vehiculo['plac_veh'] . "</h3>";
-                echo "<p><strong>Marca:</strong> " . $vehiculo['mar_veh'] . "</p>";
-                echo "<p><strong>Modelo:</strong> " . $vehiculo['model_veh'] . "</p>";
-                
-                echo "<button class='btn-documentos' onclick=\"abrirModal('docModal_" . $vehiculo['plac_veh'] . "')\">Documentos</button>";
-                echo "<button class='btn-documentos' onclick=\"abrirModal('kmModal_" . $vehiculo['plac_veh'] . "')\">Ver Kilometraje</button>";
-
-                echo "</div>";
-            }
-            echo "<p class='notificacion-verde'><strong>$cantidadVehiculos</strong> vehículo(s) están registrados</p>";
-            echo "</div>";
-        } else {
-            echo "<p>No hay vehículos registrados.</p>";
+            echo "</div>"; // cierre modal-content
+            echo "</div>"; // cierre vehiculoModal
         }
-        ?>
-    </div>
-</div>
-
-    <?php
-    if (isset($resultVehiculos) && $resultVehiculos->num_rows > 0) {
-        $resultVehiculos->data_seek(0);
-        while ($vehiculo = $resultVehiculos->fetch_assoc()) {
-            echo "<div id='docModal_" . $vehiculo['plac_veh'] . "' class='content_documentos' style='display: none;'>";
-            echo "<div class='modal-documentos'>";
-            echo "<span class='close' onclick=\"cerrarModal('docModal_" . $vehiculo['plac_veh'] . "')\">&times;</span>";
-            echo "<h2 class=''>Documentos de " . $vehiculo['plac_veh'] . "</h2>";
-
-            echo "<div class='documentos-container'>";
-
-            // Mostrar la imagen del SOAT si está disponible
-            echo "<div class='documento-item'><p>SOAT:</p>";
-            if (isset($vehiculo['foto_soat']) && !empty($vehiculo['foto_soat'])) {
-                echo "<img src='" . $vehiculo['foto_soat'] . "' alt='SOAT' width='200px'>";
-            } else {
-                echo "<p class='not-available'>⚠️ SOAT no disponible</p>";
-            }
-            echo "</div>";
-
-            echo "<div class='documento-item'><p>TECNOMECANICA:</p>";
-            if (isset($vehiculo['foto_tecno']) && !empty($vehiculo['foto_tecno'])) {
-                echo "<img src='" . $vehiculo['foto_tecno'] . "' alt='TECNOMECANICA' width='200px'>";
-            } else {
-                echo "<p class='not-available'>⚠️ TECNOMECANICA no disponible</p>";
-            }
-            echo "</div>";
          
-
             echo "</div>"; // Cierra el contenedor de documentos
 
             echo "</div></div>"; // Cierra el modal
         }
-    }
+
+    
 ?>
 
 <?php
@@ -175,26 +158,11 @@ if (isset($resultVehiculos)) {
                 }
                 echo "</div>";
 
-                // Foto final
-                echo "<div class='foto-bloque'>
-                        <p><strong>🕓 Hora Final:</strong> {$mov['hora_final']}</p>";
-                if (!empty($mov['foto_final'])) {
-                    echo "<img src='{$mov['foto_final']}' alt='Foto Final' width='200'>";
-                } else {
-                    echo "<p>Sin foto final</p>";
-                }
-                echo "</div>";
-                echo "</div>"; // cierre registro-fotos
-
-                echo "</div>"; // cierre registro-movilidad
-            }
-            echo "</div>";
-        } else {
-            echo "<p>No hay registros de kilometraje para este vehículo.</p>";
         }
 
         echo "</div></div>"; // Cierre modal
     }
+}
 }
 ?>
 
