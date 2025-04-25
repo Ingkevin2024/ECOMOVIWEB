@@ -101,4 +101,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $conn->close();
 }
+
+$conn = new mysqli("localhost", "root", "", "ecomovi");
+if ($conn->connect_error) {
+    die("Error de conexión: " . $conn->connect_error);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['guardar_primera_parte'])) {
+    $departamento = $_POST['Departamento'];
+    $municipio = $_POST['Municipio'];
+    $plac_veh = $_POST['plac_veh'];
+    $fecha_inicial = $_POST['fecha_inicial'];
+    $hora_inicial = $_POST['hora_inicial'];
+    
+    // Procesar la imagen
+    if(isset($_FILES['foto_inicial']) && $_FILES['foto_inicial']['error'] == 0) {
+        $foto_inicial = file_get_contents($_FILES['foto_inicial']['tmp_name']);
+        
+        // Preparar y ejecutar la consulta
+        $sql = "INSERT INTO movilidad (Departamento, Municipio, plac_veh, fecha_inicial, hora_inicial, foto_inicial) 
+                VALUES (?, ?, ?, ?, ?, ?)";
+        
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssss", $departamento, $municipio, $plac_veh, $fecha_inicial, $hora_inicial, $foto_inicial);
+        
+        if($stmt->execute()) {
+            header("Location: RegistroV.php?mensaje=" . urlencode("¡Registro de movilidad guardado exitosamente!"));
+            exit();
+        } else {
+            header("Location: RegistroV.php?mensaje=" . urlencode("Error al guardar el registro"));
+            exit();
+        }
+    } else {
+        header("Location: RegistroV.php?mensaje=" . urlencode("Error al procesar la imagen"));
+        exit();
+    }
+}
 ?>
