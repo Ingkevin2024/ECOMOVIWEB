@@ -33,6 +33,7 @@
             <input type="text" name="identificacion" id="search-input" 
                    placeholder="Escribe el número de Identificación..." required
                    value="<?php echo isset($_POST['identificacion']) ? $_POST['identificacion'] : ''; ?>">
+            <button type="submit" class="btn-consultar">Consultar</button>
         </form>
     </div>
     <?php
@@ -59,7 +60,7 @@
             echo "<div class='usuario-info'>";
             echo "<h2>Nombre: " . $usuario['nom_usu'] . " " . $usuario['apell_usu'] . "</h2>";
             echo "<p>CC: " . $usuario['num_doc_usu'] . "</p>";
-            echo "<button class='btn-ver-vehiculos' onclick=\"abrirModal('vehiculoModal')\">Ver Vehículos</button>";
+            echo "<button class='btn-ver-vehiculos' onclick=\"abrirModal('vehiculoModal')\">Ver Documentacion</button>";
             echo "</div>";
          
             $sqlVehiculos = "SELECT plac_veh, mar_veh, model_veh, foto_soat, foto_tecno 
@@ -120,51 +121,6 @@
     
 ?>
 
-<?php
-if (isset($resultVehiculos)) {
-    $resultVehiculos->data_seek(0);
-
-    while ($vehiculo = $resultVehiculos->fetch_assoc()) {
-        $placa = $vehiculo['plac_veh'];
-
-        // Consulta historial de movilidad
-        $sqlMovilidad = "SELECT fecha_inicial, hora_inicial, fecha_final, hora_final, puntos, foto_inicial, foto_final 
-                         FROM movilidad 
-                         WHERE plac_veh = '$placa' 
-                         ORDER BY fecha_inicial DESC";
-        $resultMovilidad = $conn->query($sqlMovilidad);
-
-        // Modal de kilometraje
-        echo "<div id='kmModal_$placa' class='modal-km-container' style='display: none;'>
-        <div class='modal-km-content'>
-            <span class='close' onclick=\"cerrarModal('kmModal_$placa')\">&times;</span>
-            <h2 class='modal-km-title'>🚗Historial de Kilometraje - Vehículo $placa</h2>";
-
-
-        if ($resultMovilidad && $resultMovilidad->num_rows > 0) {
-            echo "<div class='movilidad-registros'>";
-            while ($mov = $resultMovilidad->fetch_assoc()) {
-                echo "<div class='registro-movilidad'>";
-                echo "<p><strong>📅 Fecha:</strong> {$mov['fecha_inicial']}</p>";
-
-                echo "<div class='registro-fotos'>";
-                // Foto inicial
-                echo "<div class='foto-bloque'>
-                        <p><strong>🕒 Hora Inicial:</strong> {$mov['hora_inicial']}</p>";
-                if (!empty($mov['foto_inicial'])) {
-                    echo "<img src='{$mov['foto_inicial']}' alt='Foto Inicial' width='200'>";
-                } else {
-                    echo "<p>Sin foto inicial</p>";
-                }
-                echo "</div>";
-
-        }
-
-        echo "</div></div>"; // Cierre modal
-    }
-}
-}
-?>
 
 
 </body>
